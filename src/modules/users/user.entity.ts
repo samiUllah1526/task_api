@@ -10,14 +10,14 @@ export class User extends Model<User> {
 
     @Column({
         type: DataType.STRING,
-        unique: false,
-        allowNull: true,
+        unique: true,
+        allowNull: false,
     })
     email: string;
 
     @Column({
         type: DataType.STRING,
-        allowNull: true,
+        allowNull: false,
     })
     password: string;
 

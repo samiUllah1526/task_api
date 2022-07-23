@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
@@ -15,13 +15,14 @@ export class AuthService {
         // find if user exist with this email
         const user = await this.userService.findOneByEmail(username);
         if (!user) {
-            return null;
+            return null
         }
 
         // find if user password match
         const match = await this.comparePassword(pass, user.password);
         if (!match) {
-            return null;
+            return null
+
         }
 
         // tslint:disable-next-line: no-string-literal
@@ -38,10 +39,7 @@ export class AuthService {
 
         const isUserExist = await this.userService.findOneByEmail(user.email);
         if (isUserExist) {
-            return {
-                statusCode: 400,
-                message: "User already exist!"
-            };
+            throw new BadRequestException('User Already exist!');
         }
 
         // hash the password

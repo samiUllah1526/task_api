@@ -9,14 +9,15 @@ export class AuthController {
     constructor(private authService: AuthService) { }
 
 
-    @UseGuards(AuthGuard('local'))
-    @Post('register')
+    @UseGuards(AuthGuard('localStrategy'))
+    @Post('login')
     async login(@Request() req: ExpRequest) {
+        console.log("login route", req)
         return await this.authService.login(req.user);
     }
 
 
-    @Post('login')
+    @Post('register')
     async signUp(@Body() user: UserDto) {
         return await this.authService.create(user);
     }

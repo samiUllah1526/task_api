@@ -1,25 +1,28 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsEmail, IsEmpty } from "class-validator";
+// import { ApiProperty } from "@nestjs/swagger";
+import { IsString, IsEmail, IsOptional, IsEmpty } from "class-validator";
 
 
 
 export class UserDto {
-    @ApiProperty()
-    @IsString({
-        message: "Please provide the name"
-    })
+
+    // @IsString({
+    //     message: "Please provide the name"
+    // })
+    @IsOptional()
     readonly name: string;
 
 
-    @ApiProperty()
-    @IsEmail({}, { message: 'Invalid email' })
+
+    @IsEmail({}, { message: '"Please provide a valid email!' })
     readonly email: string;
 
-    @ApiProperty()
-    @IsString()
+
+    @IsString({ message: 'Please provide a password!' })
+    // @IsEmpty({ message: 'Please provide a password' })
     readonly password: string;
 
-    @ApiProperty()
-    @IsString({ message: "Please provide the gender" })
+
+    // @IsString({ message: 'Please provide the gender' })
+    @IsOptional()
     readonly gender: string;
 }

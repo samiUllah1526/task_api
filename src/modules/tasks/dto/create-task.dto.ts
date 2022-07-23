@@ -1,10 +1,9 @@
-import { IsNotEmpty, MinLength } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 
 export class CreateTaskDto {
     @IsNotEmpty({
         message: "Task title should not be empty"
     })
-    @MinLength(4)
     readonly title: string;
 
     @IsNotEmpty({

@@ -21,8 +21,8 @@ export class TasksController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get()
-  async findAll() {
-    return await this.tasksService.findAll();
+  async findAll(@Request() req) {
+    return await this.tasksService.findAll(req.user.id);
   }
 
 
@@ -44,8 +44,12 @@ export class TasksController {
 
 
   @UseGuards(AuthGuard('jwt'))
-  @Delete()
+  @Post('/bulk-delete')
   async remove(@Body() DeleteTaskDto: DeleteTaskDto, @Request() req) {
+
+    DeleteTaskDto.ids.map((item) => {
+      console.log("sami==>", typeof item)
+    })
     return await this.tasksService.remove(DeleteTaskDto.ids, req.user.id,);
   }
 }
